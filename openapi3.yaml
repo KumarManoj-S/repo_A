@@ -1,0 +1,110 @@
+openapi: 3.0.1
+info:
+  title: Salesforce Facade Swagger
+  version: 1.0.0
+  description: >-
+    The following information provides the information about the endpoints and
+    parameters available in the Salesforce Facade.
+tags:
+  - name: Account
+  - name: Opportunity
+paths:
+  /accounts:
+    summary: Fetches all the accounts
+    get:
+      summary: ''
+      description: ''
+      operationId: ''
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        default:
+          description: Default error sample response
+      tags:
+        - Account
+  '/accounts/{accountId}':
+    get:
+      tags:
+        - Account
+      summary: Updated user
+      description: This can only be done by the logged in user.
+      operationId: updateAccount
+      parameters:
+        - name: accountId
+          in: path
+          description: Opportunity ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        default:
+          description: Default error sample response
+      x-codegen-request-body-name: body
+  '/opportunities/{opportunityId}':
+    put:
+      tags:
+        - Opportunity
+      summary: Updated user
+      description: This can only be done by the logged in user.
+      operationId: updateUser
+      parameters:
+        - name: opportunityId
+          in: path
+          description: Opportunity ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Updated user object
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Opportunity'
+        required: true
+      responses:
+        default:
+          description: Default error sample response
+      x-codegen-request-body-name: body
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        name:
+          type: string
+        crn:
+          type: string
+        town:
+          type: string
+        postCode:
+          type: string
+    Opportunity:
+      type: object
+      properties:
+        name:
+          type: string
+        stage:
+          type: string
+    OpportunityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        stage:
+          type: string
